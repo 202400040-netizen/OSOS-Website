@@ -10,354 +10,354 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OSOS - Rhythm Game</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
         
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0a2a 0%, #0f0f3a 50%, #14144a 100%);
-            color: white;
-            min-height: 100vh;
-        }
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #0a0a2a 0%, #0f0f3a 50%, #14144a 100%);
+                color: white;
+                min-height: 100vh;
+            }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
         
-        /* Botón de música */
-        .music-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
+            /* Botón de música */
+            .music-control {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 1000;
+            }
         
-        .music-btn {
-            background: rgba(0,0,0,0.7);
-            border: none;
-            color: white;
-            font-size: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.3s;
-            backdrop-filter: blur(5px);
-        }
+            .music-btn {
+                background: rgba(0,0,0,0.7);
+                border: none;
+                color: white;
+                font-size: 30px;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: transform 0.3s;
+                backdrop-filter: blur(5px);
+            }
         
-        .music-btn:hover {
-            transform: scale(1.1);
-        }
+            .music-btn:hover {
+                transform: scale(1.1);
+            }
         
-        .header {
-            text-align: center;
-            padding: 60px 20px;
-            background: rgba(10,10,42,0.5);
-            border-radius: 30px;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+            .header {
+                text-align: center;
+                padding: 60px 20px;
+                background: rgba(10,10,42,0.5);
+                border-radius: 30px;
+                margin-bottom: 40px;
+                position: relative;
+                overflow: hidden;
+                border: 1px solid rgba(255,255,255,0.1);
+            }
         
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
-            animation: rotate 25s linear infinite;
-        }
+            .header::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+                animation: rotate 25s linear infinite;
+            }
         
-        @@keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+            @@keyframes rotate {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
         
-        .logo-img {
-            width: 160px;
-            height: 160px;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 25px rgba(255,255,255,0.4));
-            transition: transform 0.3s;
-            position: relative;
-            z-index: 1;
-        }
+            .logo-img {
+                width: 160px;
+                height: 160px;
+                margin-bottom: 20px;
+                filter: drop-shadow(0 0 25px rgba(255,255,255,0.4));
+                transition: transform 0.3s;
+                position: relative;
+                z-index: 1;
+            }
         
-        .logo-img:hover {
-            transform: scale(1.05);
-        }
+            .logo-img:hover {
+                transform: scale(1.05);
+            }
         
-        h1 {
-            font-size: 56px;
-            color: #ffffff;
-            margin-bottom: 15px;
-            text-shadow: 0 0 25px rgba(255,255,255,0.5);
-            letter-spacing: 4px;
-            position: relative;
-            z-index: 1;
-        }
+            h1 {
+                font-size: 56px;
+                color: #ffffff;
+                margin-bottom: 15px;
+                text-shadow: 0 0 25px rgba(255,255,255,0.5);
+                letter-spacing: 4px;
+                position: relative;
+                z-index: 1;
+            }
         
-        .description {
-            font-size: 18px;
-            color: #a0a0c0;
-            max-width: 700px;
-            margin: 0 auto 30px auto;
-            line-height: 1.6;
-            position: relative;
-            z-index: 1;
-        }
+            .description {
+                font-size: 18px;
+                color: #a0a0c0;
+                max-width: 700px;
+                margin: 0 auto 30px auto;
+                line-height: 1.6;
+                position: relative;
+                z-index: 1;
+            }
         
-        .download-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
-        }
+            .download-buttons {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                flex-wrap: wrap;
+                position: relative;
+                z-index: 1;
+            }
         
-        .download-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #2a6a8a, #1a4a6a);
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            padding: 15px 35px;
-            border-radius: 60px;
-            text-decoration: none;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 5px 30px rgba(0,150,255,0.3);
-            cursor: pointer;
-            border: none;
-        }
+            .download-btn {
+                display: inline-block;
+                background: linear-gradient(135deg, #2a6a8a, #1a4a6a);
+                color: white;
+                font-size: 20px;
+                font-weight: bold;
+                padding: 15px 35px;
+                border-radius: 60px;
+                text-decoration: none;
+                transition: transform 0.3s, box-shadow 0.3s;
+                box-shadow: 0 5px 30px rgba(0,150,255,0.3);
+                cursor: pointer;
+                border: none;
+            }
         
-        .download-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 40px rgba(0,150,255,0.5);
-        }
+            .download-btn:hover {
+                transform: scale(1.05);
+                box-shadow: 0 8px 40px rgba(0,150,255,0.5);
+            }
         
-        .download-btn.google {
-            background: linear-gradient(135deg, #DB4437, #B33C2F);
-        }
+            .download-btn.google {
+                background: linear-gradient(135deg, #DB4437, #B33C2F);
+            }
         
-        .download-btn.mediafire {
-            background: linear-gradient(135deg, #FF6600, #E55A00);
-        }
+            .download-btn.mediafire {
+                background: linear-gradient(135deg, #FF6600, #E55A00);
+            }
         
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
+            .features {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+                margin-bottom: 50px;
+            }
         
-        .feature-card {
-            background: rgba(15,15,58,0.6);
-            backdrop-filter: blur(10px);
-            padding: 35px 25px;
-            border-radius: 25px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+            .feature-card {
+                background: rgba(15,15,58,0.6);
+                backdrop-filter: blur(10px);
+                padding: 35px 25px;
+                border-radius: 25px;
+                text-align: center;
+                transition: transform 0.3s, box-shadow 0.3s;
+                border: 1px solid rgba(255,255,255,0.1);
+            }
         
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border-color: rgba(255,255,255,0.3);
-        }
+            .feature-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                border-color: rgba(255,255,255,0.3);
+            }
         
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
-        }
+            .feature-icon {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 20px;
+                filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
+            }
         
-        .feature-icon-large {
-            font-size: 70px;
-            margin-bottom: 20px;
-            display: inline-block;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
-        }
+            .feature-icon-large {
+                font-size: 70px;
+                margin-bottom: 20px;
+                display: inline-block;
+                filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
+            }
         
-        .feature-title {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 12px;
-            color: #88ccff;
-        }
+            .feature-title {
+                font-size: 22px;
+                font-weight: bold;
+                margin-bottom: 12px;
+                color: #88ccff;
+            }
         
-        .feature-desc {
-            color: #b0b0d0;
-            line-height: 1.5;
-            font-size: 14px;
-        }
+            .feature-desc {
+                color: #b0b0d0;
+                line-height: 1.5;
+                font-size: 14px;
+            }
         
-        .ranking-section {
-            background: rgba(10,10,42,0.5);
-            border-radius: 25px;
-            padding: 35px;
-            margin-bottom: 50px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+            .ranking-section {
+                background: rgba(10,10,42,0.5);
+                border-radius: 25px;
+                padding: 35px;
+                margin-bottom: 50px;
+                backdrop-filter: blur(5px);
+                border: 1px solid rgba(255,255,255,0.1);
+            }
         
-        .ranking-title {
-            text-align: center;
-            font-size: 32px;
-            color: #ffffff;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            text-shadow: 0 0 20px rgba(255,255,255,0.3);
-        }
+            .ranking-title {
+                text-align: center;
+                font-size: 32px;
+                color: #ffffff;
+                margin-bottom: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+                text-shadow: 0 0 20px rgba(255,255,255,0.3);
+            }
         
-        .ranking-title-img {
-            width: 50px;
-            height: 50px;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.4));
-        }
+            .ranking-title-img {
+                width: 50px;
+                height: 50px;
+                filter: drop-shadow(0 0 15px rgba(255,255,255,0.4));
+            }
         
-        .ranking-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+            .ranking-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
         
-        .ranking-table th,
-        .ranking-table td {
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
+            .ranking-table th,
+            .ranking-table td {
+                padding: 15px;
+                text-align: center;
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+            }
         
-        .ranking-table th {
-            background: rgba(0,100,150,0.2);
-            color: #88ccff;
-            font-weight: bold;
-            font-size: 16px;
-        }
+            .ranking-table th {
+                background: rgba(0,100,150,0.2);
+                color: #88ccff;
+                font-weight: bold;
+                font-size: 16px;
+            }
         
-        .ranking-table tr:hover {
-            background: rgba(255,255,255,0.05);
-        }
+            .ranking-table tr:hover {
+                background: rgba(255,255,255,0.05);
+            }
         
-        .rank-1 { 
-            color: #ffffff; 
-            font-weight: bold;
-            font-size: 18px;
-            text-shadow: 0 0 15px rgba(255,255,255,0.5);
-        }
-        .rank-2 { color: #ccccdd; font-weight: bold; font-size: 16px; }
-        .rank-3 { color: #aaaacc; font-weight: bold; font-size: 16px; }
+            .rank-1 {
+                color: #ffffff;
+                font-weight: bold;
+                font-size: 18px;
+                text-shadow: 0 0 15px rgba(255,255,255,0.5);
+            }
+            .rank-2 { color: #ccccdd; font-weight: bold; font-size: 16px; }
+            .rank-3 { color: #aaaacc; font-weight: bold; font-size: 16px; }
         
-        .gif-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            justify-items: center;
-            align-items: center;
-            margin-bottom: 50px;
-        }
+            .gif-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                justify-items: center;
+                align-items: center;
+                margin-bottom: 50px;
+            }
         
-        .gif-item {
-            background: rgba(10,10,42,0.4);
-            padding: 15px;
-            border-radius: 15px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+            .gif-item {
+                background: rgba(10,10,42,0.4);
+                padding: 15px;
+                border-radius: 15px;
+                transition: transform 0.3s, box-shadow 0.3s;
+                border: 1px solid rgba(255,255,255,0.1);
+            }
         
-        .gif-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-            border-color: rgba(255,255,255,0.3);
-        }
+            .gif-item:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+                border-color: rgba(255,255,255,0.3);
+            }
         
-        .gif-image {
-            max-width: 100%;
-            max-height: 180px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
+            .gif-image {
+                max-width: 100%;
+                max-height: 180px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
         
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
-        }
+            .controls {
+                display: flex;
+                justify-content: center;
+                gap: 25px;
+                flex-wrap: wrap;
+                margin-bottom: 40px;
+            }
         
-        .control {
-            background: rgba(10,10,42,0.6);
-            padding: 15px 25px;
-            border-radius: 15px;
-            text-align: center;
-            min-width: 100px;
-            transition: transform 0.2s;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+            .control {
+                background: rgba(10,10,42,0.6);
+                padding: 15px 25px;
+                border-radius: 15px;
+                text-align: center;
+                min-width: 100px;
+                transition: transform 0.2s;
+                border: 1px solid rgba(255,255,255,0.1);
+            }
         
-        .control:hover {
-            transform: translateY(-3px);
-            border-color: rgba(255,255,255,0.3);
-            box-shadow: 0 5px 20px rgba(0,150,255,0.2);
-        }
+            .control:hover {
+                transform: translateY(-3px);
+                border-color: rgba(255,255,255,0.3);
+                box-shadow: 0 5px 20px rgba(0,150,255,0.2);
+            }
         
-        .control-key {
-            font-size: 28px;
-            font-weight: bold;
-            color: #88ccff;
-            font-family: monospace;
-            text-shadow: 0 0 10px rgba(136,204,255,0.5);
-        }
+            .control-key {
+                font-size: 28px;
+                font-weight: bold;
+                color: #88ccff;
+                font-family: monospace;
+                text-shadow: 0 0 10px rgba(136,204,255,0.5);
+            }
         
-        .control-name {
-            font-size: 12px;
-            color: #a0a0c0;
-            margin-top: 5px;
-        }
+            .control-name {
+                font-size: 12px;
+                color: #a0a0c0;
+                margin-top: 5px;
+            }
         
-        .footer {
-            text-align: center;
-            padding: 25px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: #8888aa;
-        }
+            .footer {
+                text-align: center;
+                padding: 25px;
+                border-top: 1px solid rgba(255,255,255,0.05);
+                color: #8888aa;
+            }
         
-        .actualizando {
-            text-align: center;
-            font-size: 12px;
-            color: #88ccff;
-            margin-top: 10px;
-        }
+            .actualizando {
+                text-align: center;
+                font-size: 12px;
+                color: #88ccff;
+                margin-top: 10px;
+            }
         
-        @@media (max-width: 768px) {
-            h1 { font-size: 36px; }
-            .logo-img { width: 110px; height: 110px; }
-            .description { font-size: 14px; }
-            .download-btn { font-size: 14px; padding: 10px 20px; }
-            .feature-icon { width: 60px; height: 60px; }
-            .feature-icon-large { font-size: 50px; }
-            .ranking-title-img { width: 35px; height: 35px; }
-            .ranking-title { font-size: 24px; gap: 10px; }
-            .ranking-table th, .ranking-table td { padding: 10px; font-size: 10px; }
-            .control-key { font-size: 22px; }
-            .gif-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-            .gif-image { max-height: 130px; }
-            .music-btn { width: 45px; height: 45px; font-size: 22px; }
-        }
+            @@media (max-width: 768px) {
+                h1 { font-size: 36px; }
+                .logo-img { width: 110px; height: 110px; }
+                .description { font-size: 14px; }
+                .download-btn { font-size: 14px; padding: 10px 20px; }
+                .feature-icon { width: 60px; height: 60px; }
+                .feature-icon-large { font-size: 50px; }
+                .ranking-title-img { width: 35px; height: 35px; }
+                .ranking-title { font-size: 24px; gap: 10px; }
+                .ranking-table th, .ranking-table td { padding: 10px; font-size: 10px; }
+                .control-key { font-size: 22px; }
+                .gif-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+                .gif-image { max-height: 130px; }
+                .music-btn { width: 45px; height: 45px; font-size: 22px; }
+            }
     </style>
 </head>
 <body>
@@ -372,7 +372,7 @@
             <img src="/images/OSOS.png" alt="OSOS Logo" class="logo-img">
             <h1>OSOS</h1>
             <div class="description">
-                OSOS es un juego de ritmo donde tendrás que presionar las teclas correctas al compás de la música. 
+                OSOS es un juego de ritmo donde tendrás que presionar las teclas correctas al compás de la música.
                 Descarga canciones de YouTube, mejora tu puntería y compite por el primer puesto en el ranking global.
             </div>
             <div class="download-buttons">
@@ -490,110 +490,110 @@
     </div>
 
     <script>
-        // ==================== MÚSICA DE FONDO ====================
-        let audio = null;
-        let musicaActiva = false;
-        const musicBtn = document.getElementById('musicBtn');
+            // ==================== MÚSICA DE FONDO ====================
+            let audio = null;
+            let musicaActiva = false;
+            const musicBtn = document.getElementById('musicBtn');
         
-        function initAudio() {
-            // Usar la canción INICIO.mp3 de la carpeta music
-            audio = new Audio('/music/INICIO.mp3');
-            audio.loop = true;
-            audio.volume = 0.3;
-        }
+            function initAudio() {
+                // Usar la canción INICIO.mp3 de la carpeta music
+                audio = new Audio('/music/INICIO.mp3');
+                audio.loop = true;
+                audio.volume = 0.3;
+            }
         
-        function toggleMusic() {
-            if (!audio) {
-                initAudio();
-            }
-            
-            if (musicaActiva) {
-                audio.pause();
-                musicBtn.textContent = '🔇';
-                musicaActiva = false;
-            } else {
-                audio.play().catch(e => console.log('Error al reproducir:', e));
-                musicBtn.textContent = '🎵';
-                musicaActiva = true;
-            }
-        }
-        
-        musicBtn.addEventListener('click', toggleMusic);
-        
-        // Iniciar música automáticamente (requiere interacción del usuario)
-        document.body.addEventListener('click', function initMusic() {
-            if (!musicaActiva && audio && !audio.paused) {
-                return;
-            }
-            if (!audio) {
-                initAudio();
-            }
-            if (!musicaActiva) {
-                audio.play().catch(e => console.log('Esperando interacción del usuario'));
-                musicBtn.textContent = '🎵';
-                musicaActiva = true;
-            }
-            document.body.removeEventListener('click', initMusic);
-        });
-        
-        // ==================== ACTUALIZACIÓN AUTOMÁTICA DEL RANKING ====================
-        async function actualizarRanking() {
-            try {
-                const statusDiv = document.getElementById('updateStatus');
-                statusDiv.innerHTML = '🔄 Actualizando ranking...';
-                statusDiv.style.color = '#88ccff';
-                
-                const response = await fetch('/Home/GetRankingJson');
-                const data = await response.json();
-                
-                if (data && data.length > 0) {
-                    const tbody = document.getElementById('rankingBody');
-                    tbody.innerHTML = '';
-                    
-                    data.forEach((entry, index) => {
-                        const row = tbody.insertRow();
-                        const rankClass = index === 0 ? 'rank-1' : (index === 1 ? 'rank-2' : (index === 2 ? 'rank-3' : ''));
-                        
-                        const cell1 = row.insertCell(0);
-                        cell1.innerHTML = index + 1;
-                        cell1.className = rankClass;
-                        
-                        const cell2 = row.insertCell(1);
-                        cell2.innerHTML = entry.username;
-                        
-                        const cell3 = row.insertCell(2);
-                        cell3.innerHTML = parseInt(entry.score).toLocaleString();
-                        
-                        const cell4 = row.insertCell(3);
-                        cell4.innerHTML = 'x' + entry.maxCombo;
-                        
-                        const cell5 = row.insertCell(4);
-                        cell5.innerHTML = entry.lastSong || '-';
-                    });
-                    
-                    statusDiv.innerHTML = '✅ Ranking actualizado';
-                    setTimeout(() => {
-                        statusDiv.innerHTML = '🔄 Actualizando cada 30 segundos';
-                    }, 2000);
-                } else {
-                    const tbody = document.getElementById('rankingBody');
-                    if (tbody.children.length === 0 || tbody.children[0].cells.length === 1) {
-                        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 30px;">No hay puntuaciones aún. ¡Sé el primero!</td></tr>';
-                    }
-                    statusDiv.innerHTML = '📊 Sin puntuaciones aún';
+            function toggleMusic() {
+                if (!audio) {
+                    initAudio();
                 }
-            } catch (error) {
-                console.error('Error al actualizar ranking:', error);
-                const statusDiv = document.getElementById('updateStatus');
-                statusDiv.innerHTML = '⚠️ Error al actualizar. Reintentando...';
+            
+                if (musicaActiva) {
+                    audio.pause();
+                    musicBtn.textContent = '🔇';
+                    musicaActiva = false;
+                } else {
+                    audio.play().catch(e => console.log('Error al reproducir:', e));
+                    musicBtn.textContent = '🎵';
+                    musicaActiva = true;
+                }
             }
-        }
         
-        // Actualizar cada 30 segundos
-        setInterval(actualizarRanking, 30000);
+            musicBtn.addEventListener('click', toggleMusic);
         
-        // Actualizar al cargar la página
-        setTimeout(actualizarRanking, 1000);
+            // Iniciar música automáticamente (requiere interacción del usuario)
+            document.body.addEventListener('click', function initMusic() {
+                if (!musicaActiva && audio && !audio.paused) {
+                    return;
+                }
+                if (!audio) {
+                    initAudio();
+                }
+                if (!musicaActiva) {
+                    audio.play().catch(e => console.log('Esperando interacción del usuario'));
+                    musicBtn.textContent = '🎵';
+                    musicaActiva = true;
+                }
+                document.body.removeEventListener('click', initMusic);
+            });
+        
+            // ==================== ACTUALIZACIÓN AUTOMÁTICA DEL RANKING ====================
+            async function actualizarRanking() {
+                try {
+                    const statusDiv = document.getElementById('updateStatus');
+                    statusDiv.innerHTML = '🔄 Actualizando ranking...';
+                    statusDiv.style.color = '#88ccff';
+                
+                    const response = await fetch('/Home/GetRankingJson');
+                    const data = await response.json();
+                
+                    if (data && data.length > 0) {
+                        const tbody = document.getElementById('rankingBody');
+                        tbody.innerHTML = '';
+                    
+                        data.forEach((entry, index) => {
+                            const row = tbody.insertRow();
+                            const rankClass = index === 0 ? 'rank-1' : (index === 1 ? 'rank-2' : (index === 2 ? 'rank-3' : ''));
+                        
+                            const cell1 = row.insertCell(0);
+                            cell1.innerHTML = index + 1;
+                            cell1.className = rankClass;
+                        
+                            const cell2 = row.insertCell(1);
+                            cell2.innerHTML = entry.username;
+                        
+                            const cell3 = row.insertCell(2);
+                            cell3.innerHTML = parseInt(entry.score).toLocaleString();
+                        
+                            const cell4 = row.insertCell(3);
+                            cell4.innerHTML = 'x' + entry.maxCombo;
+                        
+                            const cell5 = row.insertCell(4);
+                            cell5.innerHTML = entry.lastSong || '-';
+                        });
+                    
+                        statusDiv.innerHTML = '✅ Ranking actualizado';
+                        setTimeout(() => {
+                            statusDiv.innerHTML = '🔄 Actualizando cada 30 segundos';
+                        }, 2000);
+                    } else {
+                        const tbody = document.getElementById('rankingBody');
+                        if (tbody.children.length === 0 || tbody.children[0].cells.length === 1) {
+                            tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 30px;">No hay puntuaciones aún. ¡Sé el primero!</td></tr>';
+                        }
+                        statusDiv.innerHTML = '📊 Sin puntuaciones aún';
+                    }
+                } catch (error) {
+                    console.error('Error al actualizar ranking:', error);
+                    const statusDiv = document.getElementById('updateStatus');
+                    statusDiv.innerHTML = '⚠️ Error al actualizar. Reintentando...';
+                }
+            }
+        
+            // Actualizar cada 30 segundos
+            setInterval(actualizarRanking, 30000);
+        
+            // Actualizar al cargar la página
+            setTimeout(actualizarRanking, 1000);
     </script>
 </body>
 </html>
