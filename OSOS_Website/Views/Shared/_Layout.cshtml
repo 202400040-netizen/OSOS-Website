@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - OSOS Rhythm Game</title>
+    <link rel="icon" type="image/png" href="/images/OSOS.png">
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+        
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #0a0a2a 0%, #0f0f3a 50%, #14144a 100%);
+                color: white;
+                min-height: 100vh;
+            }
+        
+            /* Navbar */
+            .navbar {
+                background: rgba(10, 10, 42, 0.95);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 15px 0;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+        
+            .navbar-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        
+            .navbar-brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                text-decoration: none;
+            }
+        
+            .navbar-brand-img {
+                width: 40px;
+                height: 40px;
+                filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+            }
+        
+            .navbar-brand-text {
+                font-size: 24px;
+                font-weight: bold;
+                color: #ffffff;
+                text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            }
+        
+            .nav-links {
+                display: flex;
+                gap: 30px;
+                align-items: center;
+            }
+        
+            .nav-link {
+                color: #a0a0c0;
+                text-decoration: none;
+                font-size: 16px;
+                transition: color 0.3s;
+            }
+        
+                .nav-link:hover {
+                    color: #88ccff;
+                }
+        
+            /* Main Content */
+            .main-content {
+                min-height: calc(100vh - 160px);
+            }
+        
+            /* Footer */
+            .footer {
+                text-align: center;
+                padding: 25px;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+                color: #8888aa;
+                background: rgba(10, 10, 42, 0.8);
+            }
+        
+            /* Responsive */
+            @@media (max-width: 768px) {
+                .navbar-container {
+                    flex-direction: column;
+                    gap: 15px;
+                }
+            
+                .navbar-brand-text {
+                    font-size: 20px;
+                }
+            
+                .navbar-brand-img {
+                    width: 30px;
+                    height: 30px;
+                }
+            
+                .nav-links {
+                    gap: 20px;
+                }
+            
+                .nav-link {
+                    font-size: 14px;
+                }
+            }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">
+                <img src="/images/OSOS.png" alt="OSOS" class="navbar-brand-img">
+                <span class="navbar-brand-text">OSOS</span>
+            </a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Inicio</a>
+                <a href="#ranking" class="nav-link">Ranking</a>
+                <a href="#descargar" class="nav-link">Descargar</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>OSOS - Rhythm Game | © 2025</p>
+    </footer>
+</body>
+</html>

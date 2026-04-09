@@ -1,0 +1,453 @@
+@{
+    ViewData["Title"] = "OSOS - Rhythm Game";
+    var ranking = ViewBag.Ranking as List<OSOS_Website.Models.RankingEntry>;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSOS - Rhythm Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a2a 0%, #0f0f3a 50%, #14144a 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(10,10,42,0.5);
+            border-radius: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            animation: rotate 25s linear infinite;
+        }
+        
+        @@keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .logo-img {
+            width: 160px;
+            height: 160px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 25px rgba(255,255,255,0.4));
+            transition: transform 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+        
+        h1 {
+            font-size: 56px;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-shadow: 0 0 25px rgba(255,255,255,0.5);
+            letter-spacing: 4px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .description {
+            font-size: 18px;
+            color: #a0a0c0;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #2a6a8a, #1a4a6a);
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 15px 35px;
+            border-radius: 60px;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 30px rgba(0,150,255,0.3);
+            cursor: pointer;
+            border: none;
+        }
+        
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 40px rgba(0,150,255,0.5);
+        }
+        
+        .download-btn.google {
+            background: linear-gradient(135deg, #DB4437, #B33C2F);
+        }
+        
+        .download-btn.mediafire {
+            background: linear-gradient(135deg, #FF6600, #E55A00);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .feature-card {
+            background: rgba(15,15,58,0.6);
+            backdrop-filter: blur(10px);
+            padding: 35px 25px;
+            border-radius: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.3);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
+        }
+        
+        .feature-icon-large {
+            font-size: 70px;
+            margin-bottom: 20px;
+            display: inline-block;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
+        }
+        
+        .feature-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #88ccff;
+        }
+        
+        .feature-desc {
+            color: #b0b0d0;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        
+        .ranking-section {
+            background: rgba(10,10,42,0.5);
+            border-radius: 25px;
+            padding: 35px;
+            margin-bottom: 50px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .ranking-title {
+            text-align: center;
+            font-size: 32px;
+            color: #ffffff;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+        
+        .ranking-title-img {
+            width: 50px;
+            height: 50px;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.4));
+        }
+        
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .ranking-table th,
+        .ranking-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        
+        .ranking-table th {
+            background: rgba(0,100,150,0.2);
+            color: #88ccff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .ranking-table tr:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .rank-1 { 
+            color: #ffffff; 
+            font-weight: bold;
+            font-size: 18px;
+            text-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+        .rank-2 { color: #ccccdd; font-weight: bold; font-size: 16px; }
+        .rank-3 { color: #aaaacc; font-weight: bold; font-size: 16px; }
+        
+        .gif-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            justify-items: center;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+        
+        .gif-item {
+            background: rgba(10,10,42,0.4);
+            padding: 15px;
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .gif-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.3);
+        }
+        
+        .gif-image {
+            max-width: 100%;
+            max-height: 180px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .control {
+            background: rgba(10,10,42,0.6);
+            padding: 15px 25px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 100px;
+            transition: transform 0.2s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .control:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 5px 20px rgba(0,150,255,0.2);
+        }
+        
+        .control-key {
+            font-size: 28px;
+            font-weight: bold;
+            color: #88ccff;
+            font-family: monospace;
+            text-shadow: 0 0 10px rgba(136,204,255,0.5);
+        }
+        
+        .control-name {
+            font-size: 12px;
+            color: #a0a0c0;
+            margin-top: 5px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #8888aa;
+        }
+        
+        @@media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            .logo-img { width: 110px; height: 110px; }
+            .description { font-size: 14px; }
+            .download-btn { font-size: 14px; padding: 10px 20px; }
+            .feature-icon { width: 60px; height: 60px; }
+            .feature-icon-large { font-size: 50px; }
+            .ranking-title-img { width: 35px; height: 35px; }
+            .ranking-title { font-size: 24px; gap: 10px; }
+            .ranking-table th, .ranking-table td { padding: 10px; font-size: 10px; }
+            .control-key { font-size: 22px; }
+            .gif-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+            .gif-image { max-height: 130px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <img src="/images/OSOS.png" alt="OSOS Logo" class="logo-img">
+            <h1>OSOS</h1>
+            <div class="description">
+                OSOS es un juego de ritmo donde tendrás que presionar las teclas correctas al compás de la música. 
+                Descarga canciones de YouTube, mejora tu puntería y compite por el primer puesto en el ranking global.
+            </div>
+            <div class="download-buttons">
+                <a href="https://drive.google.com/file/d/16vKSCPowgIqclkRvSLZfIFsACLLVfJb7/view?usp=drive_link" target="_blank" class="download-btn google">📁 DESCARGAR (Google Drive)</a>
+                <a href="https://www.mediafire.com/file/peh143uh1nyg22d/OSOS_RhythmGame.zip/file" target="_blank" class="download-btn mediafire">📁 DESCARGAR (MediaFire)</a>
+            </div>
+        </div>
+        
+        <!-- Features -->
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon-large">🎵</div>
+                <div class="feature-title">Música Ilimitada</div>
+                <div class="feature-desc">Descarga cualquier canción de YouTube y juega al ritmo de tus temas favoritos</div>
+            </div>
+            <div class="feature-card">
+                <img src="/images/mando.png" alt="Mando" class="feature-icon">
+                <div class="feature-title">Jugabilidad Adictiva</div>
+                <div class="feature-desc">4 carriles, combo system y ranking global. ¿Podrás conseguir SS?</div>
+            </div>
+            <div class="feature-card">
+                <img src="/images/trofeo.png" alt="Trofeo" class="feature-icon">
+                <div class="feature-title">Ranking Global</div>
+                <div class="feature-desc">Compite con jugadores de todo el mundo por el primer puesto</div>
+            </div>
+        </div>
+        
+        <!-- Ranking -->
+        <div class="ranking-section">
+            <h2 class="ranking-title">
+                <img src="/images/trofeo.png" alt="Trofeo" class="ranking-title-img">
+                RANKING GLOBAL
+                <img src="/images/trofeo.png" alt="Trofeo" class="ranking-title-img">
+            </h2>
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Jugador</th>
+                        <th>Puntaje</th>
+                        <th>Max Combo</th>
+                        <th>Canción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ranking != null && ranking.Count > 0)
+                    {
+                        for (int i = 0; i < ranking.Count; i++)
+                        {
+                            var entry = ranking[i];
+                            <tr>
+                                <td class="@(i == 0 ? "rank-1" : i == 1 ? "rank-2" : i == 2 ? "rank-3" : "")">@(i + 1)</td>
+                                <td>@entry.Username</td>
+                                <td>@entry.Score.ToString("N0")</td>
+                                <td>x@entry.MaxCombo</td>
+                                <td>@entry.LastSong</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 30px;">No hay puntuaciones aún. ¡Sé el primero!</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- GIF Grid -->
+        <div class="gif-grid">
+            <div class="gif-item">
+                <img src="/images/stress.gif" alt="Stress GIF" class="gif-image">
+            </div>
+            <div class="gif-item">
+                <img src="/images/chips.gif" alt="Chips GIF" class="gif-image">
+            </div>
+            <div class="gif-item">
+                <img src="/images/cat.gif" alt="Cat GIF" class="gif-image">
+            </div>
+            <div class="gif-item">
+                <img src="/images/cat-dog.gif" alt="Cat Dog GIF" class="gif-image">
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls">
+            <div class="control">
+                <div class="control-key">W</div>
+                <div class="control-name">Carril 1</div>
+            </div>
+            <div class="control">
+                <div class="control-key">D</div>
+                <div class="control-name">Carril 2</div>
+            </div>
+            <div class="control">
+                <div class="control-key">K</div>
+                <div class="control-name">Carril 3</div>
+            </div>
+            <div class="control">
+                <div class="control-key">O</div>
+                <div class="control-name">Carril 4</div>
+            </div>
+            <div class="control">
+                <div class="control-key">ESC</div>
+                <div class="control-name">Pausa</div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>OSOS - Rhythm Game</p>
+        </div>
+    </div>
+</body>
+</html>
