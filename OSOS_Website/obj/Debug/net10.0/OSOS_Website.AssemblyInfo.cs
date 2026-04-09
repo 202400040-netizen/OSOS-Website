@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OSOS_Website")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03f2debac2d1f836bb0b3bb95625cdcec6967010")]
 [assembly: System.Reflection.AssemblyProductAttribute("OSOS_Website")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OSOS_Website")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

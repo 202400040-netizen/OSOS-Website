@@ -29,6 +29,31 @@
             padding: 20px;
         }
         
+        /* Botón de música */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .music-btn {
+            background: rgba(0,0,0,0.7);
+            border: none;
+            color: white;
+            font-size: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+        
         .header {
             text-align: center;
             padding: 60px 20px;
@@ -311,6 +336,13 @@
             color: #8888aa;
         }
         
+        .actualizando {
+            text-align: center;
+            font-size: 12px;
+            color: #88ccff;
+            margin-top: 10px;
+        }
+        
         @@media (max-width: 768px) {
             h1 { font-size: 36px; }
             .logo-img { width: 110px; height: 110px; }
@@ -324,10 +356,16 @@
             .control-key { font-size: 22px; }
             .gif-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
             .gif-image { max-height: 130px; }
+            .music-btn { width: 45px; height: 45px; font-size: 22px; }
         }
     </style>
 </head>
 <body>
+    <!-- Control de música -->
+    <div class="music-control">
+        <button class="music-btn" id="musicBtn">🔇</button>
+    </div>
+
     <div class="container">
         <!-- Header -->
         <div class="header">
@@ -338,7 +376,7 @@
                 Descarga canciones de YouTube, mejora tu puntería y compite por el primer puesto en el ranking global.
             </div>
             <div class="download-buttons">
-                <a href="https://drive.google.com/file/d/16vKSCPowgIqclkRvSLZfIFsACLLVfJb7/view?usp=drive_link" target="_blank" class="download-btn google">📁 DESCARGAR (Google Drive)</a>
+                <a href="https://drive.google.com/uc?export=download&id=16vKSCPowgIqclkRvSLZfIFsACLLVfJb7" target="_blank" class="download-btn google">📁 DESCARGAR (Google Drive)</a>
                 <a href="https://www.mediafire.com/file/peh143uh1nyg22d/OSOS_RhythmGame.zip/file" target="_blank" class="download-btn mediafire">📁 DESCARGAR (MediaFire)</a>
             </div>
         </div>
@@ -369,7 +407,7 @@
                 RANKING GLOBAL
                 <img src="/images/trofeo.png" alt="Trofeo" class="ranking-title-img">
             </h2>
-            <table class="ranking-table">
+            <table class="ranking-table" id="rankingTable">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -379,7 +417,7 @@
                         <th>Canción</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="rankingBody">
                     @if (ranking != null && ranking.Count > 0)
                     {
                         for (int i = 0; i < ranking.Count; i++)
@@ -397,11 +435,12 @@
                     else
                     {
                         <tr>
-                            <td colspan="5" style="text-align: center; padding: 30px;">No hay puntuaciones aún. ¡Sé el primero!</td>
+                            <td colspan="5" style="text-align: center; padding: 30px;">Cargando puntuaciones...</td>
                         </tr>
                     }
                 </tbody>
             </table>
+            <div class="actualizando" id="updateStatus">🔄 Actualizando cada 30 segundos</div>
         </div>
         
         <!-- GIF Grid -->
@@ -449,5 +488,112 @@
             <p>OSOS - Rhythm Game</p>
         </div>
     </div>
+
+    <script>
+        // ==================== MÚSICA DE FONDO ====================
+        let audio = null;
+        let musicaActiva = false;
+        const musicBtn = document.getElementById('musicBtn');
+        
+        function initAudio() {
+            // Usar la canción INICIO.mp3 de la carpeta music
+            audio = new Audio('/music/INICIO.mp3');
+            audio.loop = true;
+            audio.volume = 0.3;
+        }
+        
+        function toggleMusic() {
+            if (!audio) {
+                initAudio();
+            }
+            
+            if (musicaActiva) {
+                audio.pause();
+                musicBtn.textContent = '🔇';
+                musicaActiva = false;
+            } else {
+                audio.play().catch(e => console.log('Error al reproducir:', e));
+                musicBtn.textContent = '🎵';
+                musicaActiva = true;
+            }
+        }
+        
+        musicBtn.addEventListener('click', toggleMusic);
+        
+        // Iniciar música automáticamente (requiere interacción del usuario)
+        document.body.addEventListener('click', function initMusic() {
+            if (!musicaActiva && audio && !audio.paused) {
+                return;
+            }
+            if (!audio) {
+                initAudio();
+            }
+            if (!musicaActiva) {
+                audio.play().catch(e => console.log('Esperando interacción del usuario'));
+                musicBtn.textContent = '🎵';
+                musicaActiva = true;
+            }
+            document.body.removeEventListener('click', initMusic);
+        });
+        
+        // ==================== ACTUALIZACIÓN AUTOMÁTICA DEL RANKING ====================
+        async function actualizarRanking() {
+            try {
+                const statusDiv = document.getElementById('updateStatus');
+                statusDiv.innerHTML = '🔄 Actualizando ranking...';
+                statusDiv.style.color = '#88ccff';
+                
+                const response = await fetch('/Home/GetRankingJson');
+                const data = await response.json();
+                
+                if (data && data.length > 0) {
+                    const tbody = document.getElementById('rankingBody');
+                    tbody.innerHTML = '';
+                    
+                    data.forEach((entry, index) => {
+                        const row = tbody.insertRow();
+                        const rankClass = index === 0 ? 'rank-1' : (index === 1 ? 'rank-2' : (index === 2 ? 'rank-3' : ''));
+                        
+                        const cell1 = row.insertCell(0);
+                        cell1.innerHTML = index + 1;
+                        cell1.className = rankClass;
+                        
+                        const cell2 = row.insertCell(1);
+                        cell2.innerHTML = entry.username;
+                        
+                        const cell3 = row.insertCell(2);
+                        cell3.innerHTML = parseInt(entry.score).toLocaleString();
+                        
+                        const cell4 = row.insertCell(3);
+                        cell4.innerHTML = 'x' + entry.maxCombo;
+                        
+                        const cell5 = row.insertCell(4);
+                        cell5.innerHTML = entry.lastSong || '-';
+                    });
+                    
+                    statusDiv.innerHTML = '✅ Ranking actualizado';
+                    setTimeout(() => {
+                        statusDiv.innerHTML = '🔄 Actualizando cada 30 segundos';
+                    }, 2000);
+                } else {
+                    const tbody = document.getElementById('rankingBody');
+                    if (tbody.children.length === 0 || tbody.children[0].cells.length === 1) {
+                        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 30px;">No hay puntuaciones aún. ¡Sé el primero!</td></tr>';
+                    }
+                    statusDiv.innerHTML = '📊 Sin puntuaciones aún';
+                }
+            } catch (error) {
+                console.error('Error al actualizar ranking:', error);
+                const statusDiv = document.getElementById('updateStatus');
+                statusDiv.innerHTML = '⚠️ Error al actualizar. Reintentando...';
+            }
+        }
+        
+        // Actualizar cada 30 segundos
+        setInterval(actualizarRanking, 30000);
+        
+        // Actualizar al cargar la página
+        setTimeout(actualizarRanking, 1000);
+    </script>
 </body>
 </html>
